@@ -3,9 +3,6 @@ package com.se.analytics;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -17,13 +14,11 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import com.google.gson.Gson;
 import com.se.data.DemographyEntry;
 import com.se.file.CSVFileHandler;
 
 public class MigrationPopulationMR {
 	private static final String INPUT_FILE = "/home/magic/Downloads/CA_DRU_proj_2010-2060.csv";
-	private static Gson gson = new Gson();
 
 	public static class PopulationMapper extends
 			Mapper<Object, Text, Text, LongWritable> {
@@ -36,7 +31,10 @@ public class MigrationPopulationMR {
 			if (demographyEntry == null) {
 				return;
 			}
-			context.write(new Text(demographyEntry.getYear() + "," + demographyEntry.getAge() + ","+ demographyEntry.getGender() + ","),
+			context.write(
+					new Text(demographyEntry.getYear() + ","
+							+ demographyEntry.getAge() + ","
+							+ demographyEntry.getGender() + ","),
 					new LongWritable(demographyEntry.getPopulation()));
 		}
 	}
@@ -44,10 +42,10 @@ public class MigrationPopulationMR {
 	public static class PopulationReducer extends
 			Reducer<Text, LongWritable, Text, LongWritable> {
 
-		public void reduce(Text term, Iterable<LongWritable> values, Context context)
-				throws IOException, InterruptedException {
+		public void reduce(Text term, Iterable<LongWritable> values,
+				Context context) throws IOException, InterruptedException {
 
-			long sum =  0;
+			long sum = 0;
 			for (LongWritable text : values) {
 				sum += text.get();
 			}

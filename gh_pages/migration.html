@@ -1,68 +1,90 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
 
-.bar {
-  fill: steelblue;
+<!DOCTYPE HTML>
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+  <h1 align="center"> Median Ages of CA counties for the year 2016 </h1>
+  <div id="myDiv" style="width: 1200px; height: 1500px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+  <script>
+var value = [{"letter":"Alameda","frequency":37},
+{"letter":"Alpine","frequency":50},
+{"letter":"Amador","frequency":49},
+{"letter":"Butte","frequency":36},
+{"letter":"Calaveras","frequency":51},
+{"letter":"Colusa","frequency":34},
+{"letter":"Contra Costa","frequency":40},
+{"letter":"Del Norte","frequency":40},
+{"letter":"El Dorado","frequency":45},
+{"letter":"Fresno","frequency":31},
+{"letter":"Glenn","frequency":35},
+{"letter":"Humboldt","frequency":38},
+{"letter":"Imperial","frequency":31},
+{"letter":"Inyo","frequency":45},
+{"letter":"Kern","frequency":31},
+{"letter":"Kings","frequency":29},
+{"letter":"Lake","frequency":44},
+{"letter":"Lassen","frequency":40},
+{"letter":"Los Angeles","frequency":36},
+{"letter":"Madera","frequency":33},
+{"letter":"Marin","frequency":46},
+{"letter":"Mariposa","frequency":51},
+{"letter":"Mendocino","frequency":42},
+{"letter":"Merced","frequency":30},
+{"letter":"Modoc","frequency":47},
+{"letter":"Mono","frequency":39},
+{"letter":"Monterey","frequency":34},
+{"letter":"Napa","frequency":40},
+{"letter":"Nevada","frequency":49},
+{"letter":"Orange","frequency":38},
+{"letter":"Placer","frequency":42},
+{"letter":"Plumas","frequency":51},
+{"letter":"Riverside","frequency":35},
+{"letter":"Sacramento","frequency":36},
+{"letter":"San Benito","frequency":36},
+{"letter":"San Bernardino","frequency":33},
+{"letter":"San Diego","frequency":35},
+{"letter":"San Francisco","frequency":39},
+{"letter":"San Joaquin","frequency":34},
+{"letter":"San Luis Obispo","frequency":40},
+{"letter":"San Mateo","frequency":41},
+{"letter":"Santa Barbara","frequency":34},
+{"letter":"Santa Clara","frequency":37},
+{"letter":"Santa Cruz","frequency":37},
+{"letter":"Shasta","frequency":41},
+{"letter":"Sierra","frequency":54},
+{"letter":"Siskiyou","frequency":47},
+{"letter":"Solano","frequency":37},
+{"letter":"Sonoma","frequency":42},
+{"letter":"Stanislaus","frequency":33},
+{"letter":"Sutter","frequency":35},
+{"letter":"Tehama","frequency":38},
+{"letter":"Trinity","frequency":51},
+{"letter":"Tulare","frequency":31},
+{"letter":"Tuolumne","frequency":48},
+{"letter":"Ventura","frequency":37},
+{"letter":"Yolo","frequency":29},
+{"letter":"Yuba","frequency":33}];
+
+x_new = [];
+y_new = [];
+for(index in value){
+	x_new.push(value[index]['letter']);
+	y_new.push(value[index]['frequency']);
 }
+	var data = [{
+	  type: 'bar',
+	  x: y_new,
+	  y: x_new,
+	  orientation: 'h'
+	}];
 
-.bar:hover {
-  fill: brown;
-}
+	Plotly.newPlot('myDiv', data);
 
-.axis--x path {
-  display: none;
-}
 
-</style>
-<svg width="960" height="500"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
+  </script>
+</body>
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom;
-
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-    y = d3.scaleLinear().rangeRound([height, 0]);
-
-var g = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.tsv("data.tsv", function(d) {
-  d.frequency = +d.frequency;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
-
-  x.domain(data.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-  g.append("g")
-      .attr("class", "axis axis--x")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-  g.append("g")
-      .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "%"))
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text("Frequency");
-
-  g.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.letter); })
-      .attr("y", function(d) { return y(d.frequency); })
-      .attr("width", x.bandwidth())
-      .attr("height", function(d) { return height - y(d.frequency); });
-});
-
-</script>
-
+</html>
