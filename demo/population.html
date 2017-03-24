@@ -46,7 +46,9 @@ rect:first-child {
 
 </style>
 <body>
-<script src="js/d3.v3.min.js"></script>
+<h1  align="center">Projected Population of CA state from 2010 - 2060</h1>
+
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
 var margin = {top: 20, right: 40, bottom: 30, left: 20},
@@ -83,7 +85,7 @@ var title = svg.append("text")
     .attr("dy", ".71em")
     .text(2000);
 
-d3.csv("population.csv", function(error, data) {
+d3.csv("gh_pages/population.csv", function(error, data) {
 
   // Convert strings to numbers.
   data.forEach(function(d) {
@@ -176,4 +178,5 @@ d3.csv("population.csv", function(error, data) {
 });
 
 </script>
+<p>In this diagram, you can visualize the distribution of age groups of the predicted CA state population from the year 2010 to 2060. Use the arrow keys to observe the changing population. Use the arrow keys to change the displayed year. The blue bars are the male population for each five-year age bracket, while the pink bars are the female population; the bars are partially transparent so that you can see how they overlap. Data obtained from California State OpenData is used to calculate these. </p>
 
