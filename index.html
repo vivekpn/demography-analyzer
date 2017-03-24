@@ -46,7 +46,7 @@ rect:first-child {
 
 </style>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
 
 var margin = {top: 20, right: 40, bottom: 30, left: 20},
@@ -83,7 +83,7 @@ var title = svg.append("text")
     .attr("dy", ".71em")
     .text(2000);
 
-d3.csv("population.csv", function(error, data) {
+d3.csv("gh_pages/population.csv", function(error, data) {
 
   // Convert strings to numbers.
   data.forEach(function(d) {
