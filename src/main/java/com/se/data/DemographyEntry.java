@@ -14,8 +14,12 @@ public class DemographyEntry {
 	private Integer age;
 	private String county;
 	private Integer countyCode;
-	private Long population; 
-	
+	private Long population;
+
+	public DemographyEntry() {
+
+	}
+
 	public void createId() {
 		id = county + "_" + year + "_" + ethnicity + "_" + gender + "_" + age;
 	}
@@ -53,7 +57,12 @@ public class DemographyEntry {
 	}
 
 	public String getGender() {
-		return gender;
+		if(gender.equals("male")){
+			return "1";
+		} else{
+			return "2";
+		}
+//		return gender;
 	}
 
 	public void setGender(String gender) {
@@ -71,7 +80,8 @@ public class DemographyEntry {
 	public String getCounty() {
 		return county;
 	}
-//County Code, County Name, Year, Race Code, Race Name
+
+	// County Code, County Name, Year, Race Code, Race Name
 	public void setCounty(String county) {
 		this.county = county;
 	}
@@ -91,5 +101,40 @@ public class DemographyEntry {
 	public void setPopulation(Long population) {
 		this.population = population;
 	}
-	
+
+	public boolean filtered(DemographyEntry demographyEntry) {
+		if (demographyEntry.age != null) {
+			if (!demographyEntry.age.equals(age)) {
+				return false;
+			}
+		}
+		if (demographyEntry.year != null) {
+			if (!demographyEntry.year.equals(year)) {
+				return false;
+			}
+		}
+		if (demographyEntry.ethnicity != null) {
+			if (!demographyEntry.ethnicity.equals(ethnicity)) {
+				return false;
+			}
+		}
+		if (demographyEntry.ethnicityCode != null) {
+			if (!demographyEntry.ethnicityCode.equals(ethnicityCode)) {
+				return false;
+			}
+		}
+		if (demographyEntry.county != null) {
+			if (!demographyEntry.county.equals(county)) {
+				return false;
+			}
+		}
+		if (demographyEntry.countyCode != null) {
+			if (!demographyEntry.countyCode.equals(countyCode)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 }

@@ -48,6 +48,33 @@ public class CSVFileHandler {
 		}
 
 	}
+	
+	public static DemographyEntry read(String value){
+		DemographyEntry demographyEntry = new DemographyEntry();
+		String[] csvs = value.split(",");
+		try {
+			demographyEntry.setCountyCode(Integer.parseInt(csvs[0]));
+			demographyEntry.setCounty(csvs[1]);
+			demographyEntry.setYear(Integer.parseInt(csvs[2]));
+			demographyEntry.setEthnicityCode(Integer.parseInt(csvs[3]));
+			if(csvs.length == 9){
+				demographyEntry.setEthnicity(csvs[4] + ',' + csvs[5]);
+				demographyEntry.setGender(csvs[6]);
+				demographyEntry.setAge(Integer.parseInt(csvs[7]));
+				demographyEntry.setPopulation(Long.parseLong(csvs[8]));						
+			}
+			if(csvs.length == 8){
+				demographyEntry.setEthnicity(csvs[4]);
+				demographyEntry.setGender(csvs[5]);
+				demographyEntry.setAge(Integer.parseInt(csvs[6]));
+				demographyEntry.setPopulation(Long.parseLong(csvs[7]));						
+			}
+		} catch (NumberFormatException exception) {
+			System.out.println("Error");
+			return null;
+		}
+		return demographyEntry;
+	}
 
 	public static void main(String[] args) {
 		CSVFileHandler csvFileHandler = new CSVFileHandler();
