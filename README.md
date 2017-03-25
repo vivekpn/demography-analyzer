@@ -1,7 +1,5 @@
 # Demography Analyzer
 
---------------
-
 ## Background: 
 
 In this project, I have analyzed the demography of California state to find the following:
